@@ -1,6 +1,7 @@
 import React from 'react';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import mapOptionsStyles from './mapOptionsStyles';
+import planePath from './planePath';
 import './App.css';
 
 const libraries = ['places'];
@@ -37,7 +38,15 @@ function App() {
 				zoom={12}
 				options={options}
 			>
-				<Marker position={ezeiza} />
+				<Marker
+					position={ezeiza}
+					icon={{
+						path: planePath,
+						scale: 0.08,
+						strokeColor: 'gold',
+						strokeWeight: 1,
+					}}
+				/>
 			</GoogleMap>
 		</div>
 	);
