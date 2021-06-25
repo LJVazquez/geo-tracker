@@ -28,7 +28,7 @@ function App() {
 	});
 
 	if (loadError) return 'Error cargando el mapa, por favor reintentar';
-	if (!isLoaded) return 'Cargando mapa...';
+	if (!isLoaded) return <div className="spinner"></div>;
 
 	return (
 		<div>
