@@ -40,11 +40,53 @@
 <body>
     <div id="coords">
         <h1>Posicion actual</h1>
-        <p>Latitud: <span id="lat">0</span></p>
-        <p>Longitud: <span id="lng">0</span></p>
+        <p>Latitud: <span id="lat">{{ env('MAP_STARTING_LAT') ? env('MAP_STARTING_LAT') : '0' }} </span></p>
+        <p>Longitud: <span id="lng">{{ env('MAP_STARTING_LNG') ? env('MAP_STARTING_LNG') : '0' }}</span></p>
     </div>
     <div id="map"></div>
-    <script src="{{ asset('js/map.js') }}"></script>
+
+    <script>
+        let markerCoords = {
+            lat: {{ env('MAP_STARTING_LAT') ? env('MAP_STARTING_LAT') : 0 }},
+            lng: {{ env('MAP_STARTING_LNG') ? env('MAP_STARTING_LNG') : 0 }}
+        };
+
+        function initMap() {
+            const mapOptions = {
+                zoom: 14,
+                disableDefaultUI: true,
+                zoomControl: true,
+                center: markerCoords,
+                mapId: "{{ env('GMAPS_MAP_ID') }}",
+            };
+
+            const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+            const marker = new google.maps.Marker({
+                position: markerCoords,
+                map: map,
+                icon: "{{ asset('img/plane.png') }}",
+            });
+
+            const latText = document.querySelector("span#lat");
+            const lngText = document.querySelector("span#lng");
+
+            setInterval(() => {
+                let newCoords = new google.maps.LatLng(
+                    markerCoords.lat,
+                    markerCoords.lng
+                );
+                marker.setPosition(newCoords);
+                map.panTo(newCoords);
+
+                latText.innerText = markerCoords.lat;
+                lngText.innerText = markerCoords.lng;
+
+                console.log(`coords`, markerCoords);
+            }, {{ env('MAP_CURRENT_LOCATION_REFRESH_TIME') }});
+        }
+    </script>
+
     <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GMAPS_KEY') }}&callback=initMap&libraries=&v=weekly"
         async>
     </script>
