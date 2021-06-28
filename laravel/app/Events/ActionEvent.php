@@ -37,12 +37,4 @@ class ActionEvent implements ShouldBroadcast
     {
         return 'UserEvent';
     }
-
-    public function broadcastWith()
-    {
-        return [
-            'lat' => $this->lat,
-            'lng' => $this->lng,
-        ];
-    }
 }

@@ -8,7 +8,7 @@ function initMap() {
         lng: -58.54149,
     };
     const mapOptions = {
-        zoom: 12,
+        zoom: 14,
         disableDefaultUI: true,
         zoomControl: true,
         center: center,
