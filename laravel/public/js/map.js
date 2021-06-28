@@ -21,6 +21,9 @@ function initMap() {
         icon: "../img/plane.png",
     });
 
+    const latText = document.querySelector("span#lat");
+    const lngText = document.querySelector("span#lng");
+
     setInterval(() => {
         let newCoords = new google.maps.LatLng(
             markerCoords.lat,
@@ -28,6 +31,9 @@ function initMap() {
         );
         marker.setPosition(newCoords);
         map.panTo(newCoords);
+
+        latText.innerText = markerCoords.lat;
+        lngText.innerText = markerCoords.lng;
 
         console.log(`coords`, markerCoords);
     }, 2000);
