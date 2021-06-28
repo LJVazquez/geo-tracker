@@ -22,34 +22,32 @@ function App() {
 		googleMapsApiKey: process.env.REACT_APP_MAPS_KEY,
 		libraries,
 	});
-	const [position, setPosition] = useState({
-		lat: -34.839045,
-		lng: -58.525447,
-	});
+	const [position, setPosition] = useState({});
 	const [socket, setSocket] = useState();
 
 	useEffect(() => {
-		setSocket(io(process.env.REACT_APP_SERVER_URI));
+		const asyncFunction = async () => {
+			await setSocket(io(process.env.REACT_APP_SERVER_URI));
+		};
+
+		asyncFunction();
 
 		return () => {
 			socket.disconnect();
 		};
 	}, []);
 
-	const sendPlane = () => {
-		socket.emit('fly-in-circles', 1);
+	if (socket) {
 		socket.on('coordinates-update', (newCoordinates) => {
-			console.log(`newCoordinates`, newCoordinates);
 			setPosition(newCoordinates);
 		});
-	};
+	}
 
 	if (loadError) return 'Error al cargar, por favor reintentar';
 	if (!isLoaded) return <div className="spinner"></div>;
 
 	return (
 		<div>
-			<button onClick={sendPlane}>Sobrevolar aeropuerto</button>
 			<GoogleMap
 				mapContainerStyle={mapContainerStyle}
 				center={center}

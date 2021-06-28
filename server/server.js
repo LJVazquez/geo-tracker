@@ -12,17 +12,14 @@ const io = new Server(server, {
 const flightPath = require('./flightPath');
 let index = 0;
 
-const flyOverAirport = () => {
-	io.emit('coordinates-update', flightPath[index]);
-	if (index < flightPath.length) index++;
-	if (index === flightPath.length) index = 0;
+const flyOverAirport = async () => {
+	setInterval(() => {
+		io.emit('coordinates-update', flightPath[index]);
+		if (index < flightPath.length) index++;
+		if (index === flightPath.length) index = 0;
+		console.log(`index`, index);
+	}, 4000);
 };
-
-function setTimeoutLoop(callback, interval, times) {
-	for (var i = 0; i < times; i++) {
-		setTimeout(callback, i * interval);
-	}
-}
 
 app.get('/', (req, res) => {
 	res.send('funcionando');
@@ -30,9 +27,7 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
 	console.log('user connected');
-	socket.on('fly-in-circles', (times) => {
-		setTimeoutLoop(flyOverAirport, 2000, flightPath.length * times);
-	});
+	// flyOverAirport();
 });
 
 server.listen(process.env.SERVER_PORT, () => {
