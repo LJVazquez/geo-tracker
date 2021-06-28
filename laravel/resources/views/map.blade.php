@@ -28,9 +28,6 @@
     <script src="{{ url('/js/laravel-echo-setup.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/receive-event.js') }}"></script>
 
-    <script type="text/javascript">
-
-    </script>
 
 
 </body>
