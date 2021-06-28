@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,7 @@ Route::get('/', function () {
     return view('map');
 });
 
-Route::get('/test', function () {
-    event(new \App\Events\ActionEvent());
-    dd('Event fired.');
+Route::post('/send-coords', function (Request $req) {
+    event(new \App\Events\ActionEvent($req->lat, $req->lng));
+    return ['ok' => 'coordinates received'];
 });

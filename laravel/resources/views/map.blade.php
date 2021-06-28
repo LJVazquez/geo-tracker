@@ -21,6 +21,16 @@
     <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GMAPS_KEY') }}&callback=initMap&libraries=&v=weekly"
         async>
     </script>
+    <script>
+        window.laravel_echo_port = '{{ env('LARAVEL_ECHO_PORT') }}';
+    </script>
+    <script src="//{{ Request::getHost() }}:{{ env('LARAVEL_ECHO_PORT') }}/socket.io/socket.io.js"></script>
+    <script src="{{ url('/js/laravel-echo-setup.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/receive-event.js') }}"></script>
+
+    <script type="text/javascript">
+
+    </script>
 
 
 </body>

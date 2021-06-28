@@ -1,9 +1,8 @@
-const markerCoords = {
-    lat: -34.81293,
-    lng: -58.54149,
-};
+let markerCoords = {};
 
-function initMap(coords) {
+let markerObj;
+
+function initMap() {
     const center = {
         lat: -34.81293,
         lng: -58.54149,
@@ -17,21 +16,31 @@ function initMap(coords) {
     };
 
     const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
     const marker = new google.maps.Marker({
-        position: center,
+        position: markerCoords,
         map: map,
     });
 
-    moveMarker(map, marker);
+    setInterval(() => {
+        let newCoords = new google.maps.LatLng(
+            markerCoords.lat,
+            markerCoords.lng
+        );
+        marker.setPosition(newCoords);
+        console.log(`coords`, markerCoords);
+    }, 2000);
 }
 
-const moveMarker = (map, marker) => {
+const moveMarker = (marker) => {
     setInterval(() => {
-        markerCoords.lat += 0.0001;
-        markerCoords.lng += -0.0001;
-        center = new google.maps.LatLng(markerCoords.lat, markerCoords.lng);
-        marker.setPosition(center);
-        map.panTo(center);
-    }, 500);
-    console.log(`coords`, markerCoords);
+        markerCoords.lat += 0.0111;
+        markerCoords.lng += -0.0011;
+        let newCoords = new google.maps.LatLng(
+            markerCoords.lat,
+            markerCoords.lng
+        );
+        marker.setPosition(newCoords);
+        console.log(`coords`, markerCoords);
+    }, 2000);
 };

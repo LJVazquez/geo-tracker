@@ -14,14 +14,13 @@ class ActionEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public $lat;
+    public $lng;
+
+    public function __construct($lat, $lng)
     {
-        //
+        $this->lat = $lat;
+        $this->lng = $lng;
     }
 
     /**
@@ -42,7 +41,8 @@ class ActionEvent implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'title' => 'This notification from www.codecheef.org'
+            'lat' => $this->lat,
+            'lng' => $this->lng,
         ];
     }
 }

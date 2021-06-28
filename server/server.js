@@ -14,22 +14,19 @@ let index = 0;
 
 const flyOverAirport = async () => {
 	setInterval(() => {
-		io.emit('coordinates-update', flightPath[index]);
+		console.log(`flightPath[index]`, flightPath[index]);
 		if (index < flightPath.length) index++;
 		if (index === flightPath.length) index = 0;
 		console.log(`index`, index);
 	}, 4000);
 };
 
+flyOverAirport();
+
 app.get('/', (req, res) => {
 	res.send('funcionando');
 });
 
-io.on('connection', (socket) => {
-	console.log('user connected');
-	// flyOverAirport();
-});
-
 server.listen(process.env.SERVER_PORT, () => {
-	console.log(`listening on port ${process.env.SERVER_PORT}`);
+	console.log(`server activo en puerto ${process.env.SERVER_PORT}`);
 });
