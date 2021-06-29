@@ -1,6 +1,7 @@
 const axios = require('axios');
 var http = require('http');
 const flightPath = require('./flightPath');
+require('dotenv').config();
 
 let index = 0;
 
@@ -9,7 +10,7 @@ const flyOverAirport = () => {
 		sendCoordinates(flightPath[index]);
 		if (index < flightPath.length) index++;
 		if (index === flightPath.length) index = 0;
-	}, 4000);
+	}, process.env.COORDINATES_SENDING_INTERVAL);
 };
 
 const sendCoordinates = (coords) => {

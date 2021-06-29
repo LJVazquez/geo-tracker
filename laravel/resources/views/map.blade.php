@@ -40,13 +40,8 @@
 <body>
     <div id="coords">
         <h1>Posicion actual</h1>
-<<<<<<< HEAD
         <p>Latitud: <span id="lat">{{ env('MAP_STARTING_LAT') ? env('MAP_STARTING_LAT') : '0' }} </span></p>
         <p>Longitud: <span id="lng">{{ env('MAP_STARTING_LNG') ? env('MAP_STARTING_LNG') : '0' }}</span></p>
-=======
-        <p>Latitud: <span id="lat">0</span></p>
-        <p>Longitud: <span id="lng">0</span></p>
->>>>>>> 28863ceeb8027c5e7f6f8a325e78d6cc55ac950a
     </div>
     <div id="map"></div>
 
